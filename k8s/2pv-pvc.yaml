@@ -1,0 +1,94 @@
+# apiVersion: v1
+# kind: Namespace
+# metadata:
+    # name: fabrick8s
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: org1-pv
+spec:
+  capacity:
+    storage: 500Mi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: org1-pv
+  nfs:
+    path: /home/hyper/opt/share/crypto-config/peerOrganizations/org1
+    server: 192.168.1.140  #change to your nfs server ip here
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+ namespace: fabrick8s
+ name: org1-pv
+spec:
+ storageClassName: org1-pv
+ accessModes:
+   - ReadWriteMany
+ resources:
+   requests:
+     storage: 10Mi
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: org1-artifacts-pv
+spec:
+    capacity:
+       storage: 500Mi
+    accessModes:
+       - ReadWriteMany
+    storageClassName: org1-artifacts-pv
+    nfs: 
+      path: /home/hyper/opt/share/channel-artifacts
+      server: 192.168.1.140 #change to your nfs server ip here
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    namespace: fabrick8s
+    name: org1-artifacts-pv
+spec:
+   storageClassName: org1-artifacts-pv
+   accessModes:
+     - ReadWriteMany
+   resources:
+      requests:
+        storage: 10Mi
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: org1-chaincode-pv
+spec:
+    capacity:
+       storage: 500Mi
+    accessModes:
+       - ReadWriteMany
+    storageClassName: org1-chaincode-pv
+    nfs: 
+      path: /home/hyper/opt/share/chaincode
+      server: 192.168.1.140 #change to your nfs server ip here
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    namespace: fabrick8s
+    name: org1-chaincode-pv
+spec:
+   storageClassName: org1-chaincode-pv
+   accessModes:
+     - ReadWriteMany
+   resources:
+      requests:
+        storage: 10Mi
+
+---

@@ -1,0 +1,129 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: fabrick8s
+  name:	peer0-org1
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+       name: peer0-org1
+    spec:
+      containers:
+      - name: peer0-org1
+        image: hyperledger/fabric-peer:latest
+        env:
+        - name: CORE_VM_ENDPOINT
+          value: tcp://docker:2375
+        - name: CORE_VM_DOCKER_ATTACHSTDOUT
+          value: "true"
+        - name: CORE_PEER_ADDRESSAUTODETECT
+          value: "true"
+        - name: CORE_PEER_NETWORKID
+          value: nid1
+        - name: FABRIC_LOGGING_SPEC
+          value: "DEBUG"
+        - name: CORE_LOGGING_PEER
+          value: debug
+        - name: CORE_LOGGING_CAUTHDSL
+          value: debug
+        - name: CORE_LOGGING_GOSSIP
+          value: debug
+        - name: CORE_LOGGING_LEDGER
+          value: debug
+        - name: CORE_LOGGING_MSP
+          value: info
+        - name: CORE_LOGGING_POLICIES
+          value: debug
+        - name: CORE_CHAINCODE_LOGGING_LEVEL
+          value: "DEBUG"
+        - name: CORE_CHAINCODE_LOGGING_SHIM
+          value: "DEBUG"
+        - name: GODEBUG
+          value: "netdns=go"
+        - name: CORE_LOGGING_GRPC
+          value: debug
+        - name: CORE_PEER_TLS_ENABLED
+          value: "false"
+        - name: CORE_PEER_GOSSIP_USELEADERELECTION
+          value: "true"
+        - name: CORE_PEER_GOSSIP_ORGLEADER
+          value: "false"
+        - name: CORE_PEER_PROFILE_ENABLED
+          value: "true"
+        - name: CORE_PEER_TLS_CERT_FILE
+          value: "/etc/hyperledger/fabric/tls/server.crt"
+        - name: CORE_PEER_TLS_KEY_FILE
+          value: "/etc/hyperledger/fabric/tls/server.key"
+        - name: CORE_PEER_TLS_ROOTCERT_FILE
+          value: "/etc/hyperledger/fabric/tls/ca.crt"
+        - name: CORE_PEER_ID
+          value: "peer0-org1"
+        - name: CORE_PEER_ADDRESS
+          value: "peer0-org1:30001"
+        - name: CORE_PEER_LISTENADDRESS
+          value: "0.0.0.0:30001"
+        - name: CORE_PEER_EVENTS_ADDRESS
+          value: 0.0.0.0:30002
+        - name: CORE_PEER_GOSSIP_BOOTSTRAP
+          value: "peer0-org1:30001"
+        - name: CORE_PEER_GOSSIP_ENDPOINT
+          value: "peer0-org1:30001"
+        - name: CORE_PEER_GOSSIP_EXTERNALENDPOINT
+          value: "peer0-org1:30001"
+        - name: CORE_PEER_LOCALMSPID
+          value: "Org1MSP"
+        - name: ORDERER_URL
+          value: orderer0-orgorderer1:32000
+        - name: TZ
+          value: "America/Chicago"
+        workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+        command: ["peer"]
+        args: ["node","start"]
+        volumeMounts:
+         - mountPath: /etc/hyperledger/fabric/msp
+           name: certificate
+           subPath: peers/peer0.org1/msp
+         - mountPath: /etc/hyperledger/fabric/tls
+           name: certificate
+           subPath: peers/peer0.org1/tls
+         - mountPath: /host/var/run/
+           name: run
+         - mountPath: /host/var/run/docker.sock
+           name: dockersocket
+      volumes:
+       - name: certificate
+         persistentVolumeClaim:
+             claimName: org1-pv
+       - name: run
+         hostPath:
+           path: /var/run
+       - name: dockersocket
+         hostPath:
+           path: /var/run/docker.sock
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+   namespace: fabrick8s
+   name: peer0-org1
+spec:
+ selector:
+   name: peer0-org1
+ type: NodePort
+ ports:
+   - name: grpc
+     protocol: TCP
+     port: 30001
+     targetPort: 30001
+     nodePort: 30001
+   - name: events
+     protocol: TCP
+     port: 30002
+     targetPort: 30001
+     nodePort: 30002
+---
