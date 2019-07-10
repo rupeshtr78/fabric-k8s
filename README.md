@@ -10,5 +10,5 @@ install chaincode on peer and instantiate chaincode on channel. Also invoke tran
 https://medium.com/p/5d993f4236df/edit
 
 References 
-https://applatix.com/case-docker-docker-kubernetes-part-2/
-https://applatix.com/case-docker-docker-kubernetes-part-2/
+* https://applatix.com/case-docker-docker-kubernetes-part-2/
+* https://applatix.com/case-docker-docker-kubernetes-part-2/
