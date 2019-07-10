@@ -1,4 +1,4 @@
-# Deploy Hyperledger Fabric using Kubernetes
+# Deploy Basic Hyperledger Fabric Network using Kubernetes
 
 The objective of this post is to implement a basic fabric network on Kubernetes platform.
 The indent is to understand the architecture behind kubernetes deployment of fabric network by going through each step.
