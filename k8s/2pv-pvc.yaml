@@ -16,7 +16,7 @@ spec:
   storageClassName: org1-pv
   nfs:
     path: /home/hyper/opt/share/crypto-config/peerOrganizations/org1
-    server: 192.168.1.140  #change to your nfs server ip here
+    server: 192.168.1.xxx  #nfs server ip
 
 ---
 apiVersion: v1
@@ -45,7 +45,7 @@ spec:
     storageClassName: org1-artifacts-pv
     nfs: 
       path: /home/hyper/opt/share/channel-artifacts
-      server: 192.168.1.140 #change to your nfs server ip here
+      server: 192.168.1.xxx #nfs server ip
 ---
 
 apiVersion: v1
@@ -75,7 +75,7 @@ spec:
     storageClassName: org1-chaincode-pv
     nfs: 
       path: /home/hyper/opt/share/chaincode
-      server: 192.168.1.140 #change to your nfs server ip here
+      server: 192.168.1.xxx #nfs server ip
 ---
 
 apiVersion: v1
