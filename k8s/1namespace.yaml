@@ -15,7 +15,7 @@ spec:
     - ReadWriteMany
   nfs:
     path: /home/hyper/opt/share/crypto-config/ordererOrganizations/orgorderer1
-    server: 192.168.1.140  #change to your nfs server ip here
+    server: 192.168.1.xxx  #change to your nfs server ip here
 
 ---
 apiVersion: v1
