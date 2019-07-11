@@ -9,7 +9,7 @@ install chaincode on peer and instantiate chaincode on channel. Also invoke tran
 
 
 # Refer Medium.com article for more details
-* https://medium.com/p/5d993f4236df/edit
+* https://medium.com/@rupeshtr/deploy-hyperledger-fabric-network-using-kubernetes-5d993f4236df
 
 References 
 * https://applatix.com/case-docker-docker-kubernetes-part-2/
