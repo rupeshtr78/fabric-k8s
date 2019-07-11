@@ -13,4 +13,4 @@ install chaincode on peer and instantiate chaincode on channel. Also invoke tran
 
 References 
 * https://applatix.com/case-docker-docker-kubernetes-part-2/
-* https://applatix.com/case-docker-docker-kubernetes-part-2/
+* https://github.com/IBM/blockchain-network-on-kubernetes.git
