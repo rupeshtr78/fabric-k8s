@@ -8,7 +8,7 @@ We will be deploy one master node , two worker nodes and a NFS server to
 share network artifacts and chain code data across the nodes.
 
 
-![](images/K8S-MASTER.png)
+![](images/K8S-MASTER.png==100x)
 
 Keeping it simple we will be deploying the Hyperledger Fabric network
 consisting of one organization, maintaining one peer node, one orderer
