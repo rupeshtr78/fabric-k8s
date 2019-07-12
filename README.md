@@ -111,7 +111,7 @@ ChainCode**](images/cc-install.jpeg)
 > '{"Args":\["init","a","100\","b","200\"\]}' -P "AND('Org1MSP.member')"
 
 ![**Instantiate
-ChainCode**](images/cc-Instantiate .jpeg)
+ChainCode**](images/cc-Instantiate.jpeg)
 
 **Invoke ChainCode**
 
