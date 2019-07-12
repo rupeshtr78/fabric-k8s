@@ -8,7 +8,7 @@ We will be deploy one master node , two worker nodes and a NFS server to
 share network artifacts and chain code data across the nodes.
 
 
-![](https://miro.medium.com/max/60/1*i-2Y_PAJL6zT5bHn8dfqJA.png?q=20)
+![](images/K8S-MASTER.png)
 
 Keeping it simple we will be deploying the Hyperledger Fabric network
 consisting of one organization, maintaining one peer node, one orderer
@@ -19,12 +19,8 @@ channel. Also invoke transactions against the deployed chaincode.
 **Installation**
 
 Install [Kubernetes
-,](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/){.aq
-.cc .ia .ib .ic .id}initialize cluster, add worker nodes to the
-Kubernetes Cluster.We will mount PersistantVolumes as
-NFS.[Configure](https://help.ubuntu.com/lts/serverguide/network-file-system.html){.aq
-.cc .ia .ib .ic .id} your NFS file server VM and mount the NFS share on
-all the nodes.
+,](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)initialize cluster, add worker nodes to the Kubernetes Cluster.We will mount PersistantVolumes as
+NFS.[Configure](https://help.ubuntu.com/lts/serverguide/network-file-system.html)your NFS file server VM and mount the NFS share on all the nodes.
 
 **Generate the Network Artifacts**
 
@@ -38,7 +34,7 @@ chaincode directory to NFS share.
 **Deployment Model**
 
 ![K8s Deployment
-Model](https://miro.medium.com/max/60/1*4OIVJZ57t7z-M1zQfkDdaw.png?q=20)
+Model](images/FABRIC-K8S.png)
 
 ***NameSpace***
 
@@ -66,8 +62,7 @@ Model](https://miro.medium.com/max/60/1*4OIVJZ57t7z-M1zQfkDdaw.png?q=20)
 
 Now lets start the network by running scripts one by one.
 
-> [cd fabric-k8s/k8s](https://github.com/rupeshtr78/fabric-k8s){.aq .cc
-> .ia .ib .ic .id}
+> [cd fabric-k8s/k8s](https://github.com/rupeshtr78/fabric-k8s)
 >
 > kubectl create -f 1namespace.yaml\
 > kubectl create -f 2pv-pvc.yaml\
@@ -80,7 +75,7 @@ Now lets start the network by running scripts one by one.
 > Verify the deployments in the dashboard
 
 ![Kubernetes
-Dashboard](https://miro.medium.com/max/60/1*vtSPqzsMu_9Y7ZwzzIhUlQ.png?q=20)
+Dashboard](images/b8s-dashboard.jpeg)
 
 **Create , join , Update Channel** 
 ----------------------------------
@@ -99,7 +94,7 @@ Dashboard](https://miro.medium.com/max/60/1*vtSPqzsMu_9Y7ZwzzIhUlQ.png?q=20)
 > peer channel join -b \${CHANNEL\_NAME}\_newest.block
 
 ![Kubernetes Dashboard Orderer Pod Logs shows new
-channel](https://miro.medium.com/max/60/1*qWvnKU3q69wKufPSJfQUlg.png?q=20)
+channel](images/k8s-orderer-logs.jpeg)
 
 **Install ChainCode**
 
@@ -107,7 +102,7 @@ channel](https://miro.medium.com/max/60/1*qWvnKU3q69wKufPSJfQUlg.png?q=20)
 > github.com/hyperledger/fabric/examples/chaincode/chaincode\_example02/go
 
 ![**Install
-ChainCode**](https://miro.medium.com/max/60/1*9e5ufsHHFsTVLJ3nUOpTLQ.png?q=20)}
+ChainCode**](images/cc-install.jpeg)
 
 **Instantiate ChainCode**
 
@@ -116,7 +111,7 @@ ChainCode**](https://miro.medium.com/max/60/1*9e5ufsHHFsTVLJ3nUOpTLQ.png?q=20)}
 > '{"Args":\["init","a","100\","b","200\"\]}' -P "AND('Org1MSP.member')"
 
 ![**Instantiate
-ChainCode**](https://miro.medium.com/max/60/1*fiVnD-BgfYXIKYJ7KJb11Q.png?q=20)
+ChainCode**](images/cc-Instantiate.jpeg)
 
 **Invoke ChainCode**
 
@@ -127,14 +122,11 @@ ChainCode**](https://miro.medium.com/max/60/1*fiVnD-BgfYXIKYJ7KJb11Q.png?q=20)
 > '{"Args":\["query","a"\]}'
 
 ![Query
-Result](https://miro.medium.com/max/60/1*54s934zDR0oVubDT7Lf76Q.png?q=20)
+Result](images/cc-invoke.jpeg)
 
 You would see that the chain code container is getting started inside
 the docker-dind pod as a sidecar container.
 
 **References**
 
-[](https://applatix.com/case-docker-docker-kubernetes-part-2/)
-
-
-[](https://medium.com/m/signin?operation=register&redirect=https%3A%2F%2Fmedium.com%2F%40rupeshtr%2Fdeploy-hyperledger-fabric-network-using-kubernetes-5d993f4236df&source=post_sidebar-----5d993f4236df---------------------clap_sidebar-){.aq
+https://applatix.com/case-docker-docker-kubernetes-part-2
